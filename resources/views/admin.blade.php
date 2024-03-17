@@ -23,7 +23,7 @@
             <div
                 class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-                   <x-mary-icon name="o-user-group" />
+                   <x-mary-icon name="o-book-open" />
                 </div>
 
                 <div class="flex items-end justify-between mt-4">
@@ -41,7 +41,7 @@
             <div
                 class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-                    <x-mary-icon name="o-user-group" />
+                    <x-mary-icon name="o-document-text" />
                 </div>
 
                 <div class="flex items-end justify-between mt-4">
@@ -59,7 +59,7 @@
             <div
                 class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-                    <x-mary-icon name="o-user-group" />
+                    <x-mary-icon name="o-user-circle" />
                 </div>
 
                 <div class="flex items-end justify-between mt-4">
