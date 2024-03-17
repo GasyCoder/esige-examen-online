@@ -1,0 +1,2 @@
+# Exécuter le script pour incrémenter la version
+& '/c/laragon/www/esige-online/increment_version.ps1'
