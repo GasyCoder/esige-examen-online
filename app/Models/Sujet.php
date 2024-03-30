@@ -11,14 +11,12 @@ class Sujet extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'opened',
         'matiere_id',
         'observations',
         'is_active'
     ];
 
     protected $casts = [
-        'opened' => 'boolean',
         'is_active' => 'boolean',
     ];
 

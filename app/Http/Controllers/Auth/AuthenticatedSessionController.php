@@ -31,22 +31,24 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
         $userRoles = $user->roles;
         
+        // Redirection selon le rôle de l'utilisateur
+
         foreach ($userRoles as $role) {
             switch($role->name) {   
             case 'admin':
-                return redirect()->intended(route('admin', absolute: false));
+                return redirect()->intended(route('admin-panel', absolute: false));
             break;
             case 'teacher':
-                return redirect()->intended(route('teacher', absolute: false));
+                return redirect()->intended(route('teacher-panel', absolute: false));
             break;
             case 'student':
-                return redirect()->intended(route('dashboard', absolute: false));
+                return redirect()->intended(route('student.panel', absolute: false));
             break;
                 default:
                     return redirect('/login');
             }
         }
-        
+
         //return redirect()->intended(route('dashboard', absolute: false));
     }
 

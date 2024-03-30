@@ -1,43 +1,58 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Livewire\Classes;
+use App\Livewire\Users\Students;
+use App\Livewire\Users\Teachers;
+use App\Livewire\Donnees\Classes;
+use App\Livewire\Students\Listes;
+use App\Livewire\Donnees\Parcours;
+use App\Livewire\Donnees\ClasseApi;
+use App\Livewire\Donnees\ParcourApi;
+use App\Livewire\Matieres\MatiereApi;
+use App\Livewire\Users\UserStudents;
+use App\Livewire\Users\UserTeachers;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Students\StudentIndex;
+use App\Http\Controllers\ProfileController;
 
 
+Route::middleware(['auth', 'verified'])->group(function () {
 
-Route::middleware(['auth', 'verified', 'super-admin'])->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/admin', function () {
-        return view('admin');
-    })->name('admin');
+        // Routes Admin
+        Route::middleware(['role:admin'])->group(function () {
+            Route::get('/auth-admin-panel', function () {
+                return view('admin');
+            })->name('admin-panel');
 
-    Route::get('/classes', Classes::class)->name('classe');
-});
+            Route::get('/niveau-etude', ClasseApi::class)->name('classe');
+            Route::get('/parcours', ParcourApi::class)->name('parcour');
+            Route::get('/matieres', MatiereApi::class)->name('matiere');
 
-Route::middleware(['auth', 'verified', 'teacher-user'])->group(function () {
+            Route::get('/user-teachers', UserTeachers::class)->name('user_teachers');
+            Route::get('/user-students', UserStudents::class)->name('user_students');
+            Route::get('/liste-students', StudentIndex::class)->name('index_students');
+        });
 
-    Route::get('/teacher', function () {
-        return view('teacher');
-    })->name('teacher');
-
-});
-
-
-Route::middleware(['auth', 'verified', 'student-user'])->group(function () {
-
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
-});
+        // Routes Student
+        Route::middleware(['role:student'])->group(function () {
+            
+            Route::get('/student', function () {
+                return view('student');
+            })->name('student.panel');
+        });
 
 
-Route::middleware(['auth:web', 'verified'])->group(function () {
+        // Routes Teacher
+        Route::middleware(['role:teacher'])->group(function () {
+            
+            Route::get('/teacher', function () {
+                return view('teacher');
+            })->name('teacher-panel');
+        });
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 

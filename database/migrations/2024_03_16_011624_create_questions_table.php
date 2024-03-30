@@ -17,7 +17,7 @@ return new class extends Migration
             $table->enum('type', ['radio', 'checkbox', 'textarea', 'file']); // Utilisez enum pour le type
             $table->string('label');
             $table->json('options')->nullable();
-            $table->text('question')->nullable();
+            $table->text('question_texte')->nullable();
             $table->string('file_path')->nullable();
             $table->boolean('is_active')->default(false);
             $table->integer('time_limit')->nullable();

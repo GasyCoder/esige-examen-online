@@ -6,77 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <!-- Styles -->
-    @livewireStyles
+    <meta name="author" content="GasyCoder">
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon/favicon.ico">
+    <!-- darkmode js -->
+    <script src="{{ asset('assets/js/vendors/darkMode.js') }}"></script>
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/quill/dist/quill.snow.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/yaireo/tagify/dist/tagify.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/flatpickr/dist/flatpickr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/bs-stepper/dist/css/bs-stepper.min.css') }}">
+    @stack('styles')
+    @mediaLibraryStyles
 </head>
 
-<body
-    x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
-    x-init="
-    darkMode = JSON.parse(localStorage.getItem('darkMode'));
-    $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
-    :class="{'dark text-bodydark bg-boxdark-2': darkMode === true}">
-    
-    <x-preloader/>
-    
-    @if(Auth::user()->hasRole('student') && Auth::user()->hasRole('teacher'))
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @include('layouts.navigation')
-        <!-- Page Heading -->
-        @if (isset($header))
-        <header class="bg-white shadow dark:bg-gray-800">
-            <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                {{ $header }}
-            </div>
-        </header>
-        @endif
-        <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
-    </div>
-    @endif
-
-    @if(Auth::user()->hasRole('teacher'))
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @include('layouts.navigation')
-        <!-- Page Heading -->
-        @if (isset($header))
-        <header class="bg-white shadow dark:bg-gray-800">
-            <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                {{ $header }}
-            </div>
-        </header>
-        @endif
-        <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
-    </div>
-    @endif
-
-    @if(Auth::user()->hasRole('admin'))
+<body>
     <!-- ===== Page Wrapper Start ===== -->
-    <div class="flex h-screen overflow-hidden">
-    <!-- start: Sidebar -->
-        <x-side-bar/>
-        <div class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
-            <x-header />
-            <main>
-                {{ $slot }}
-            </main>
-        </div>   
-    </div>  
-    @endif
+    <div id="db-wrapper">
+        <!-- start: Sidebar -->
+        <x-sidebar />
+        <main id="page-content">
+        <x-header />
 
+            {{ $slot }}
+            
+        </main>
+    </div>
 
-    @stack('modals')
-    @livewireScripts
+    @stack('scripts')
+
+    <script src="{{ asset('assets/libs/bs-stepper/dist/js/bs-stepper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendors/beStepper.js') }}"></script>
+    <script src="{{ asset('assets/libs/quill/dist/quill.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendors/editor.js') }}"></script>
+    <script src="{{ asset('assets/js/vendors/validation.js') }}"></script>
+    <script src="{{ asset('assets/libs/yaireo/tagify/dist/tagify.min.js') }}"></script>
+    <!-- Scripts -->
+    <!-- Libs JS -->
+    <script src="{{ asset('assets/libs/popperjs/core/dist/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/simplebar/dist/simplebar.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/flatpickr/dist/flatpickr.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendors/flatpickr.js') }}"></script>
+    <!-- Main JS -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <x-livewire-alert::scripts />
 </body>
 </html>

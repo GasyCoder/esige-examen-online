@@ -32,6 +32,12 @@ class TypeAnswersSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'type' => 'file',
+                'label' => 'File',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

@@ -18,6 +18,7 @@ class UserAdminSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'is_active'   => true,
+            'status'   => true,
             'password' => bcrypt('admin@mail.com'),
             'email_verified_at' => now(),
         ]);
@@ -28,6 +29,7 @@ class UserAdminSeeder extends Seeder
             'name' => 'Teacher',
             'email' => 'teacher@mail.com',
             'is_active'   => true,
+            'status'   => true,
             'password' => bcrypt('teacher@mail.com'),
             'email_verified_at' => now(),
         ]);
@@ -38,7 +40,8 @@ class UserAdminSeeder extends Seeder
             'name' => 'Student',
             'email' => 'etudiant@mail.com',
             'is_active'   => true,
-            'password' => bcrypt('student@mail.com'),
+            'status'   => true,
+            'password' => bcrypt('etudiant@mail.com'),
             'email_verified_at' => now(),
         ]);
         $student->assignRole('student');

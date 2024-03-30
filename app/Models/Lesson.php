@@ -30,18 +30,9 @@ class Lesson extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function classe()
-    {
-        return $this->belongsTo(Classe::class);
-    }
-
     public function matiere()
     {
         return $this->belongsTo(Matiere::class);
     }
 
-    public function parcours()
-    {
-        return $this->belongsToMany(Parcour::class);
-    }
 }

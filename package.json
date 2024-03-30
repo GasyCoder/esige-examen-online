@@ -17,6 +17,7 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@alpinejs/persist": "^3.13.7",
         "@tailwindcss/typography": "^0.5.10",
         "flatpickr": "^4.6.13",
         "jsvectormap": "^1.5.3"

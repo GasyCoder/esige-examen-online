@@ -16,13 +16,15 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('fname');
             $table->string('lname')->nullable();
+            $table->string('sexe');
             $table->string('uuid')->unique();
             $table->bigInteger('number')->unique();
             $table->unsignedBigInteger('classe_id');
             $table->unsignedBigInteger('parcour_id');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('photo')->nullable();
+            $table->text('adresse')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();

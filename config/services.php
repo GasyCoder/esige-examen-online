@@ -31,4 +31,9 @@ return [
         ],
     ],
 
+    'scolx' => [
+        'base_uri' => env('SCOLX_BASE_URI', 'http://scolx.esige.test/'),
+        'token' => env('SCOLX_TOKEN'),
+    ],
+
 ];

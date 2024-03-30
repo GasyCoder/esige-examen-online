@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('teacher_id');
-            $table->unsignedBigInteger('classe_id');
             $table->unsignedBigInteger('matiere_id');
             $table->text('title');
             $table->text('sub_title');
@@ -25,7 +24,6 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('classe_id')->references('id')->on('classes')->onDelete('cascade');
             $table->foreign('matiere_id')->references('id')->on('matieres')->onDelete('cascade');
         });
     }

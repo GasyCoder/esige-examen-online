@@ -15,7 +15,7 @@ class Question extends Model
         'type',
         'label',
         'options',
-        'question',
+        'question_texte',
         'file_path',
         'is_active'
     ];
