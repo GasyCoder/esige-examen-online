@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
         foreach ($userRoles as $role) {
             switch($role->name) {   
             case 'admin':
-                return redirect()->intended(route('admin-panel', absolute: false));
+                return redirect()->intended(route('admin.panel', absolute: false));
             break;
             case 'teacher':
                 return redirect()->intended(route('teacher-panel', absolute: false));

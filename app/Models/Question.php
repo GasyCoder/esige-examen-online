@@ -2,31 +2,94 @@
 
 namespace App\Models;
 
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\Support\File;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Question extends Model
+class Question extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes;
-
+    use InteractsWithMedia;
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'sujet_id',
-        'type',
-        'label',
-        'options',
-        'question_texte',
-        'file_path',
-        'is_active'
-    ];
+        'generalQuestion',
+        'chooseResponse',
+        'correctResponse',
+        'pointResponse',
 
-    protected $casts = [
-        'is_active' => 'boolean',
+        'typeQuestion',
+
+        'question_texte',
+        'image_required',
+        'file_path',
+        'comment',
     ];
 
 
     public function sujet()
     {
         return $this->belongsTo(Sujet::class);
+    }
+
+    public function getFilePathAttribute()
+    {
+        return $this->getFirstMediaUrl('sujet_examen_files');
+    }
+
+    public function getFileExtensionAttribute()
+    {
+        $media = $this->getFirstMedia('sujet_examen_files');
+        return $media ? $media->extension : null;
+    }
+
+    public function getFileSizeAttribute()
+    {
+        $media = $this->getFirstMedia('sujet_examen_files');
+        return $media ? $this->formatBytes($media->size) : null;
+    }
+
+    protected function formatBytes($bytes, $precision = 2)
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+        $bytes /= pow(1024, $pow);
+        return round($bytes, $precision) . ' ' . $units[$pow];
+    }
+
+
+    public function registerMediaColections()
+    {
+        $this->addMediaCollection('sujet_examen_files')
+            ->acceptsFile(File::WORD)
+            ->acceptsFile(File::POWERPOINT)
+            ->acceptsFile(File::PDF);
+        $this->addMediaCollection('downloads')
+            ->singleFile();
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Fit::Crop, 300, 300)
+            ->nonQueued();
+
+        $this->addMediaConversion('pdf')
+            ->fit(Fit::Fit, 1200, 1200)
+            ->nonQueued()
+            ->onlySource(File::PDF);
+
+        $this->addMediaConversion('office')
+            ->fit(Fit::Fit, 1200, 1200)
+            ->nonQueued()
+            ->onlySource(File::WORD, File::POWERPOINT);
     }
 }

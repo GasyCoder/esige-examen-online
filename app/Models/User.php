@@ -52,13 +52,5 @@ class User extends Authenticatable
         ];
     }
 
-    public function classe()
-    {
-        return $this->belongsTo(Classe::class);
-    }
 
-    public function parcour()
-    {
-        return $this->belongsTo(Parcour::class);
-    }
 }

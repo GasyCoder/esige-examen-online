@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('assets/libs/flatpickr/dist/flatpickr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/bs-stepper/dist/css/bs-stepper.min.css') }}">
     @stack('styles')
-    @mediaLibraryStyles
 </head>
 
 <body>

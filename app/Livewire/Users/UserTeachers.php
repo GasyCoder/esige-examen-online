@@ -46,7 +46,7 @@ class UserTeachers extends Component
         $user->assignRole($role);
 
         $this->alert('success', 'Compte a été crée avec succèss!');
-        $this->redirect('/user-teachers');
+        return redirect()->route('user_teachers');
     }
 
     public function edit($id)
@@ -75,7 +75,7 @@ class UserTeachers extends Component
         ]);
 
         $this->alert('success', 'Information a été à jour avec succèss!');
-        $this->redirect('/user-teachers');
+        return redirect()->route('user_teachers');
     }
 
     public function delete($userId)
@@ -83,7 +83,7 @@ class UserTeachers extends Component
         $user = User::findOrFail($userId);
         $user->delete();
         $this->alert('success', 'Supprimé avec succèss');
-        return $this->redirect('/user-teachers');
+        return redirect()->route('user_teachers');
     }
 
     

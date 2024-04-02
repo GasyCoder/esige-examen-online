@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sujet_id');
-            $table->enum('type', ['radio', 'checkbox', 'textarea', 'file']); // Utilisez enum pour le type
-            $table->string('label');
-            $table->json('options')->nullable();
-            $table->text('question_texte')->nullable();
-            $table->string('file_path')->nullable();
-            $table->boolean('is_active')->default(false);
-            $table->integer('time_limit')->nullable();
+            $table->string('typeQuestion'); 
+            $table->mediumText('generalQuestion')->nullable(); //for only qcm question type
+            $table->json('chooseResponse')->nullable(); // reponse de question generale
+            $table->json('correctResponse')->nullable(); //check un seul reponse vrai
+            $table->json('pointResponse')->nullable(); // qcm point
+
+            $table->text('question_texte')->nullable(); // for only text
+            $table->text('image_required')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
 

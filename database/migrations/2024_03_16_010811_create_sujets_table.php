@@ -13,14 +13,18 @@ return new class extends Migration
     {
        Schema::create('sujets', function (Blueprint $table) {
             $table->id();
-            $table->boolean('opened')->default(false);
-            $table->unsignedBigInteger('matiere_id');
-            $table->text('observations')->nullable();
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
+            $table->string('uuid')->unique();
+            $table->string('name');
+            $table->tinyInteger('timer');
+            $table->unsignedBigInteger('matiere_id')->nullable();
+            $table->unsignedBigInteger('type_sujet_id');
+            $table->integer('reference');
+            $table->boolean('isActive')->default(true);
+            $table->timestamps('dateFin');
+             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('matiere_id')->references('id')->on('matieres')->onDelete('cascade');
+            $table->foreign('type_sujet_id')->references('id')->on('type_sujets')->onDelete('cascade');
         });
     }
 

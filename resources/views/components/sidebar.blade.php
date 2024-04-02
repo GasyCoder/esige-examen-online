@@ -8,19 +8,26 @@
         <!-- Navbar nav -->
         <ul class="navbar-nav flex-column" id="sideNavbar">
             <li class="nav-item">
-                <a class="nav-link " href="#">
+                <a class="nav-link " href="{{ route('admin.panel') }}">
                     <i class="nav-icon fe fe-home me-2"></i>
                     Accueil
                 </a>
             </li>
             <!-- Nav item -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('cours') }}">
                      <i class="nav-icon fe fe-book me-2"></i>
                     Cours
                 </a>
             </li>
             <!-- Nav item -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('sujets') }}">
+                    <i class="nav-icon fe fe-file-text me-2"></i>
+                    Sujets
+                </a>
+            </li>
+            {{-- <!-- Nav item -->
             <li class="nav-item">
                 <a class="nav-link collapsed " href="#" data-bs-toggle="collapse" data-bs-target="#navExamen"
                     aria-expanded="false" aria-controls="navExamen">
@@ -37,15 +44,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
-
-             <!-- Nav item -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('user_students') }}">
-                    <i class="nav-icon fe fe-lock me-2"></i>
-                    Utilisateurs
-                </a>
-            </li>
+            </li> --}}
 
             <!-- Nav item -->
             {{-- <li class="nav-item">
@@ -75,7 +74,7 @@
                 <div id="navData" class="collapse " data-bs-parent="#sideNavbar">
                     <ul class="nav flex-column">
                          <li class="nav-item">
-                            <a class="nav-link" href="{{ route('index_students') }}">
+                            <a class="nav-link" href="{{ route('student') }}">
                                 <i class="nav-icon fe fe-folder me-2"></i>
                                 Etudiants
                             </a>
@@ -105,6 +104,15 @@
             <li class="nav-item">
                 <div class="navbar-heading">Configuration</div>
             </li>
+
+            <!-- Nav item -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('user_students') }}">
+                    <i class="nav-icon fe fe-lock me-2"></i>
+                    Utilisateurs
+                </a>
+            </li>
+
             <!-- Nav item -->
             <li class="nav-item">
                 <a class="nav-link" href="#">

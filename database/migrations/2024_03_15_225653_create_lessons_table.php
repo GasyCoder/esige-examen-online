@@ -13,18 +13,15 @@ return new class extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('teacher_id');
-            $table->unsignedBigInteger('matiere_id');
+            $table->string('uuid')->unique();
+            $table->unsignedBigInteger('matiere_id')->nullable();
             $table->text('title');
             $table->text('sub_title');
             $table->text('body')->nullable();
-            $table->longText('file_path')->nullable();
-            $table->boolean('is_publish')->default(false);
+            $table->longText('video_path')->nullable();
+            $table->boolean('is_publish')->default(true);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('matiere_id')->references('id')->on('matieres')->onDelete('cascade');
         });
     }
 

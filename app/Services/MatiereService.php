@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\User;
 use GuzzleHttp\Client;
 
 class MatiereService
@@ -41,8 +40,17 @@ class MatiereService
         if ($response->getStatusCode() == 200) {
             $matieres = json_decode($response->getBody(), true);
             //dd($matieres);
-            return collect($matieres)->all();
+            return collect($matieres);
         }
         return [];
     }
+
+    public function getMatieresByClasseAndParcour($classe_id, $parcour_id)
+    {
+        $matieres = $this->getMatieres();
+        return $matieres->filter(function ($matiere) use ($classe_id, $parcour_id) {
+            return $matiere['classe_id'] == $classe_id && in_array($parcour_id, array_column($matiere['parcours'], 'id'));
+        });
+    }
+
 }

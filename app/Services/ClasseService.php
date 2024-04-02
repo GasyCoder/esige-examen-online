@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\User;
 use GuzzleHttp\Client;
 
 class ClasseService
@@ -41,7 +40,7 @@ class ClasseService
         if ($response->getStatusCode() == 200) {
             $classes = json_decode($response->getBody(), true);
             //dd($classes);
-            return collect($classes)->all();
+            return collect($classes);
         }
         return [];
     }
