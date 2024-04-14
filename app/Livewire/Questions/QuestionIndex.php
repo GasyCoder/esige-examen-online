@@ -16,8 +16,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class QuestionIndex extends Component
 {   
     use WithFileUploads, WithPagination, AuthorizesRequests, LivewireAlert;
+    protected $paginationTheme = 'bootstrap';
     public $sujet;
-    public $page = 10;
+    public $page = 20;
     public $typeSujet;
     public $matieres;
     public $sujet_id, $comment;
@@ -210,13 +211,14 @@ class QuestionIndex extends Component
         $title = 'Liste des questions';
         $this->matieres = $matiereService->getMatieres();
         return view('livewire.questions.question-index', [
+
             'title' => $title,
 
             'questions' => Question::query()
                 ->withoutTrashed()
                 ->where('sujet_id', $this->sujet->id)
                 ->latest()
-                ->paginate($this->page),
+                ->Simplepaginate($this->page),
 
             'trashes'  => Question::query()
                 ->onlyTrashed()

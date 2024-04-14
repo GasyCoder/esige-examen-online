@@ -1,6 +1,6 @@
 @foreach($questions as $question)
 <div class="container-fluid row justify-content-center">
-    <div class="col-lg-9 col-12">
+<div class="col-lg-9 col-12">
 <!-- card -->
 <div class="mb-3 card">
     <!-- card body -->
@@ -34,7 +34,7 @@
                 </label>
                <ul class="list-inline">
                     <li class="list-inline-item">
-                        <a href="{{ $question->file_path }}" download>
+                        <a href="{{ $question->getFirstMedia('sujet_examen_files')->getFullUrl() }}" download>
                             <img src="{{ asset('assets/images/courses/pdf.png') }}" alt="" class="rounded img-4by3-lg">
                         </a>
                         <span>Type: {{ $question->file_extension }} - size: {{ $question->file_size }}</span>
@@ -72,4 +72,5 @@
 </div>
     </div>
 </div>
+
 @endforeach

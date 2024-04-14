@@ -6,16 +6,17 @@
                 <thead class="table-light">
                     <tr>
                         <th>Cours</th>
-                        <th>Enseignant</th>
                         <th>Niveau</th>
-                        <th class="text-center">Parcours</th>
+                        <th>Parcours</th>
+                        <th>Date Fin</th>
+                        <th>Exercice</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($trashes as $lesson)
                     @php
-                    $matiere = $matieres->firstWhere('id', $lesson->matiere_id);
+                        $matiere = $matieres->firstWhere('id', $lesson->matiere_id);
                     @endphp
                     <tr>
                         <td>
@@ -25,22 +26,21 @@
                                         <img src="{{ asset('assets/images/courses/icon.png') }}" alt="" class="rounded img-4by3-sm">
                                     </div>
                                     <div class="ms-3">
-                                        <h4 class="mb-1 text-primary-hover">{{ $lesson->title }}</h4>
-                                        <span>
-                                            @if($matiere)
-                                            ({{ $matiere['name'] }})
-                                            @endif
-                                        </span>
+                                        <h4 class="mb-1 text-primary-hover">
+                                        @if($matiere)
+                                        {{ $matiere['name'] }}
+                                        @endif</h4>
+                                        <ul class="mb-0 list-inline fs-6">
+                                            <li class="list-inline-item">
+                                                <i class="bi bi-person"></i>
+                                                @if($matiere)
+                                                {{ $matiere['teacher']['fullname'] }}
+                                                @endif
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </a>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                @if($matiere)
-                                {{ $matiere['teacher']['fullname'] }}
-                                @endif
-                            </div>
                         </td>
                         <td>
                             <div class="d-flex align-items-center">
@@ -53,6 +53,12 @@
                             @foreach($matiere['parcours'] as $parcour)
                             <span class="badge badge-sm bg-secondary">{{ $parcour['sigle'] }}</span>
                             @endforeach
+                        </td>
+                        <td>
+                            {{ $lesson->dateFin->format('d/m/Y') }}
+                        </td>
+                        <td>
+                            <span class="text-danger fw-semibold">{{ $lesson->exercices->count() }}</span>
                         </td>
                         <td>
                           @if($lesson->trashed())  

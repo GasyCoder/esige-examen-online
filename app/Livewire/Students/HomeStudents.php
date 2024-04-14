@@ -5,6 +5,7 @@ namespace App\Livewire\Students;
 use App\Models\Sujet;
 use App\Models\Lesson;
 use Livewire\Component;
+use App\Models\Exercice;
 use App\Services\ClasseService;
 use App\Services\MatiereService;
 use App\Services\ParcourService;
@@ -15,6 +16,8 @@ class HomeStudents extends Component
     public $userParcour;
     public $userClasse;
     public $lessons;
+    public $matieres;
+    public $totalExercices;
 
     public function ouvrirSujet($uuid)
     {
@@ -42,19 +45,24 @@ class HomeStudents extends Component
         $this->userClasse = $classeService->findById($user->classe_id);
         $this->userParcour = $parcourService->findById($user->parcour_id);
         $matieres = $matiereService->getMatieresByClasseAndParcour($user->classe_id, $user->parcour_id);
+        $this->matieres = $matiereService->getMatieres();
 
-        $sujets = Sujet::whereIn('matiere_id', $matieres->pluck('id'))->get();
-            foreach ($sujets as $sujet) {
-                $sujet->matiere = $matiereService->findById($sujet->matiere_id);
-            }
+        $sujets = Sujet::whereIn('matiere_id', $matieres->pluck('id'))
+                ->where('isActive', true)->get();
 
-        return view('livewire.students.home', [
+        foreach ($sujets as $sujet) {
+            $sujet->matiere = $matiereService->findById($sujet->matiere_id);
+        }
 
-            $this->lessons = Lesson::whereIn('matiere_id', $matieres->pluck('id'))->get(),
+        $this->lessons = Lesson::whereIn('matiere_id', $matieres->pluck('id'))->get();
 
+        $this->totalExercices = Exercice::whereHas('lesson', function ($query) use ($matieres) {
+            $query->whereIn('matiere_id', $matieres->pluck('id'));
+        })->count();
+
+        return view('livewire.students.home-students', [
             'sujets' => $sujets,
-
-
         ])->layout('layouts.student');
     }
+
 }

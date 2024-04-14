@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use GuzzleHttp\Client;
 
 class EtudiantService
@@ -34,10 +35,28 @@ class EtudiantService
             return collect($etudiants)
                 ->filter(function ($etudiant) {
                     return $etudiant['isActive'] === true && $etudiant['typeFormation'] === true;
-                })
-                ->all();
+                })->all();
         }
 
         return [];
     }
+
+    public function count()
+    {
+        $etudiants = $this->getEtudiants();
+        $emailsExistants = User::pluck('email')->toArray();
+        $count = 0;
+
+        foreach ($etudiants as $etudiant) {
+            if ($etudiant['isActive'] === true
+                && $etudiant['typeFormation'] === false
+                && !in_array(strtolower($etudiant['email']), array_map('strtolower', $emailsExistants))
+            ) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
 }

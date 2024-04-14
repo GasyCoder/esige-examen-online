@@ -23,13 +23,20 @@
                             <!-- Nav -->
                             <ul class="nav nav-lb-tab border-bottom-0" id="tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="sujets-tab" data-bs-toggle="pill" href="#sujets"
-                                        role="tab" aria-controls="sujets" aria-selected="true">Tous <sup
-                                            class="badge badge-sm bg-success">{{ $countSujet }}</sup></a>
+                                    <a class="nav-link active position-relative" id="sujets-tab" data-bs-toggle="pill" href="#sujets"
+                                        role="tab" aria-controls="sujets" aria-selected="true">Tous 
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                                            {{ $countSujet }}
+                                        </span>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="trash-tab" data-bs-toggle="pill" href="#trash" role="tab" aria-controls="trash"
-                                        aria-selected="false">Corbeille <sup class="badge badge-sm bg-danger">{{ $countTrash }}</sup></a>
+                                    <a class="nav-link position-relative" id="trash-tab" data-bs-toggle="pill" href="#trash" role="tab" aria-controls="trash"
+                                        aria-selected="false">Corbeille 
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            {{ $countTrash }}
+                                        </span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>

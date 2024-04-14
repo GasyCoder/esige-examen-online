@@ -5,16 +5,26 @@ use App\Livewire\Cours\Lessons;
 use App\Livewire\Api\MatiereApi;
 use App\Livewire\Api\ParcourApi;
 use App\Livewire\Api\StudentApi;
+use App\Livewire\Cours\Exercices;
 use App\Livewire\Cours\AddLessons;
-use App\Livewire\Students\Examens;
 use App\Livewire\Cours\EditLessons;
 use App\Livewire\Sujets\SujetIndex;
 use App\Livewire\Users\UserStudents;
 use App\Livewire\Users\UserTeachers;
+use App\Livewire\Responses\Resultats;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Students\HomeStudents;
+use App\Livewire\Responses\ReplyExamen;
+use App\Livewire\Students\Menus\Examens;
+use App\Livewire\Responses\RepondreSujet;
 use App\Livewire\Questions\QuestionIndex;
+use App\Livewire\Responses\ReplyExercice;
+use App\Livewire\Students\Menus\Ecolages;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Students\Menus\Programmes;
+use App\Livewire\Responses\ReponseByStudent;
+use App\Livewire\Students\Menus\Cours\MyCours;
+use App\Livewire\Students\Menus\Cours\ShowCours;
+use App\Livewire\Students\Menus\ResultExercices;
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -37,13 +47,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/liste-students', StudentApi::class)->name('student');
 
             Route::get('/cours', Lessons::class)->name('cours');
+            Route::get('/exercices', Exercices::class)->name('exercices');
             Route::get('/ajouter-cours', AddLessons::class)->name('addcours');
             Route::get('/editer-cours/{uuid}', EditLessons::class)->name('editcours');
 
             Route::get('/sujets', SujetIndex::class)->name('sujets');
             Route::get('/question-sujet/{type}/{uuid}', QuestionIndex::class)->name('question_sujet');
 
-
+            Route::get('/reponses-exercice', ReplyExercice::class)->name('reply_exercice');
+            Route::get('/reponses-examen', ReplyExamen::class)->name('reply_examen');
+            Route::get('/open-resultats-examen/{student_id}/{uuid}', Resultats::class)->name('result_examen');
+            Route::get('/reponse-par-etudiant/{sujet_id}/{student_id}-les-reponses', ReponseByStudent::class)->name('reponse_student');
+            
             Route::get('/user-teachers', UserTeachers::class)->name('user_teachers');
             Route::get('/user-students', UserStudents::class)->name('user_students');
             
@@ -52,9 +67,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Routes Student
         Route::middleware(['role:student'])->prefix('etudiant')->group(function () {
 
-            Route::get('/panel', HomeStudents::class)->name('student.panel');
-            Route::get('/ouvrir-sujet/{uuid}', Examens::class)->name('openSujet')
-            ->middleware('check.sujet.ouvert');
+            Route::get('/panel', function () {
+                return view('student');
+            })->name('student.panel');
+
+            Route::get('/mon-cours', MyCours::class)->name('mycours')->middleware('check.user.status');
+            Route::get('/mon-exercice', ResultExercices::class)->name('myexercice')->middleware('check.user.status');
+            Route::get('/mon-examen', Examens::class)->name('myexamen')->middleware('check.user.status');
+            Route::get('/mon-programme', Programmes::class)->name('myprogramme')->middleware('check.user.status');
+            Route::get('/detail-cour/{uuid}', ShowCours::class)->name('detailCour')->middleware('check.user.status');
+
+            Route::get('/mon-ecolage', Ecolages::class)->name('myecolage');
+
+        
+            Route::get('/ouvrir-sujet-qcm/{uuid}', RepondreSujet::class)->name('openSujet')->middleware('check.sujet.ouvert');
         });
 
 

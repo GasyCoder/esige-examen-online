@@ -8,7 +8,7 @@
                         <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />
                     </a>
                     <p class="font-medium 2xl:px-20">
-                        Université Privé
+                        Université Privé ESIGE Mahajanga
                     </p>
 
                     <span class="inline-block mt-15">

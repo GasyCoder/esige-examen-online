@@ -13,4 +13,9 @@ class TypeSujet extends Model
         'type',
         'label',
     ];
+
+    public function typeSujet()
+    {
+        return $this->belongsTo(TypeSujet::class);
+    }
 }

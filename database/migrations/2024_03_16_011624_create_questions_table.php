@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sujet_id');
-            $table->string('typeQuestion'); 
-            $table->mediumText('generalQuestion')->nullable(); //for only qcm question type
-            $table->json('chooseResponse')->nullable(); // reponse de question generale
-            $table->json('correctResponse')->nullable(); //check un seul reponse vrai
-            $table->json('pointResponse')->nullable(); // qcm point
+            $table->string('typeQuestion'); // radio ou checkbox
+            $table->mediumText('generalQuestion')->nullable(); //Who's Elon Musk
+            $table->json('chooseResponse')->nullable(); // A: B: C: 
+            $table->json('correctResponse')->nullable(); //check un seul ou deux reponses vrai
+            $table->json('pointResponse')->nullable(); // qcm point 5 point
 
             $table->text('question_texte')->nullable(); // for only text
             $table->text('image_required')->nullable();

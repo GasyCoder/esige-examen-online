@@ -36,4 +36,8 @@ return [
         'token' => env('SCOLX_TOKEN'),
     ],
 
+    'pspdfkit' => [
+        'key'   => env('PSPDFKIT_LICENSE_KEY'),
+    ],
+
 ];

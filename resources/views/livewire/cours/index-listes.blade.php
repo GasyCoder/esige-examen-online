@@ -6,10 +6,12 @@
             <thead class="table-light">
                 <tr>
                     <th>Cours</th>
-                    <th>Enseignant</th>
                     <th>Niveau</th>
-                    <th class="text-center">Parcours</th>
+                    <th>Parcours</th>
+                    <th>Date Fin</th>
+                    <th>Exercice</th>
                     <th>Status</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -28,22 +30,23 @@
                                         class="rounded img-4by3-sm">
                                 </div>
                                 <div class="ms-3">
-                                    <h4 class="mb-1 text-primary-hover">{{ $lesson->title }}</h4>
-                                    <span>
+                                    <h4 class="mb-1 text-primary-hover">
+                                        {{-- {{ Str::limit($lesson->title_cour, 23) }} --}}
                                         @if($matiere)
-                                        {{ $matiere['classe']['sigle'] }}
+                                        {{ $matiere['name'] }}
                                         @endif
-                                    </span>
+                                    </h4>
+                                     <ul class="mb-0 list-inline fs-6">
+                                        <li class="list-inline-item">
+                                            <i class="bi bi-person"></i>
+                                            @if($matiere)
+                                             {{ $matiere['teacher']['fullname'] }}
+                                            @endif
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </a>
-                    </td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            @if($matiere)
-                            {{ $matiere['teacher']['fullname'] }}
-                            @endif
-                        </div>
                     </td>
                     <td>
                         <div class="d-flex align-items-center">
@@ -54,16 +57,31 @@
                     </td>
                     <td>
                         @foreach($matiere['parcours'] as $parcour)
-                        <span class="badge badge-sm bg-secondary">{{ $parcour['sigle'] }}</span>
+                        <span class="">{{ $parcour['sigle'] }},</span>
                         @endforeach
                     </td>
                     <td>
+                        <span class="badge bg-warning-soft">{{ $lesson->dateFin->format('d/m/Y') }}</span>
+                    </td>
+                    <td>
+                        <span class="badge bg-info-soft">{{ $lesson->exercices->count() }}</span>
+                    </td>
+                    <td>
                         @if($lesson->is_publish == true)
-                        <span class="align-middle badge-dot bg-success me-1 d-inline-block"></span>
-                        Publié
+                        <span class="badge bg-success-soft">
+                            <span class="align-middle badge-dot bg-success me-0 d-inline-block"></span> Publié 
+                        </span>
                         @else 
-                        <span class="align-middle badge-dot bg-danger me-1 d-inline-block"></span>
-                        Arrêté
+                        <span class="badge bg-danger-soft">
+                            <span class="align-middle badge-dot bg-danger me-0 d-inline-block"></span> Arrêté 
+                        </span>
+                        @endif
+                    </td>
+                    <td>
+                        @if($lesson->video_path != NULL)
+                        <i class="bi bi-camera-video text-success"></i>
+                        @else
+                        <i class="bi bi-camera-video-off text-danger"></i>
                         @endif
                     </td>
                     <td>
@@ -81,13 +99,19 @@
                     </td>
                     <td>
                         <span class="dropdown dropstart">
-                            <a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#" role="button"
+                            <a class="btn-icon btn btn-ghost btn-sm rounded-circle" 
+                                href="#" role="button"
                                 id="courseDropdown1" data-bs-toggle="dropdown" data-bs-offset="-20,20"
                                 aria-expanded="false">
                                 <i class="fe fe-more-vertical"></i>
                             </a>
                             <span class="dropdown-menu" aria-labelledby="courseDropdown1">
                                 <span class="dropdown-header">Actions</span>
+                                <button wire:click="addExo({{ $lesson->id }})" class="dropdown-item" 
+                                    data-bs-toggle="modal" href="#addExo" role="button">
+                                    <i class="fe fe-plus-circle dropdown-item-icon"></i>
+                                    Ajouter exercice
+                                </button>
                                 <a class="dropdown-item" href="{{ route('editcours', ['uuid' => $lesson->uuid]) }}">
                                     <i class="fe fe-edit dropdown-item-icon"></i>
                                     Modifier
@@ -107,4 +131,6 @@
      <p class="text-center text-danger">Aucun cour ici.</p>
     @endif
     </div>
+
+    @include('livewire.cours.exercice.add')
 </div>

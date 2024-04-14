@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->unique();
             $table->unsignedBigInteger('matiere_id')->nullable();
-            $table->text('title');
+            $table->text('title_cour');
             $table->text('sub_title');
+            $table->timestamps('dateFin');
             $table->text('body')->nullable();
             $table->longText('video_path')->nullable();
             $table->boolean('is_publish')->default(true);
+            $table->string('year_university')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

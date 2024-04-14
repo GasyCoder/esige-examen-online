@@ -21,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'prevent.home.access' => \App\Http\Middleware\PreventHomeAccess::class,
             'check.sujet.ouvert' => \App\Http\Middleware\CheckSujetOuvert::class,
+            'check.user.status' => \App\Http\Middleware\CheckUserStatus::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

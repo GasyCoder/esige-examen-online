@@ -3,6 +3,7 @@
 namespace App\Livewire\Api;
 
 use App\Models\User;
+use App\Models\Setting;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Services\ClasseService;
@@ -68,15 +69,18 @@ class StudentApi extends Component
         // Récupérez les instances des modèles Classe et Parcour à partir de leurs identifiants
         $classe = $classeService->findById($this->classeId);
         $parcour = $parcourService->findById($this->parcourId);
-
+        $setting = Setting::first();
+        
         $user = User::create([
-            'email' => $this->email,
-            'name' => $this->fname,
-            'classe_id' => $classe['id'],
-            'parcour_id' => $parcour['id'], 
-            'is_active' => true,
-            'email_verified_at' => now(),
-            'password' => bcrypt($this->password),
+            'email'                     => $this->email,
+            'name'                      => $this->fname,
+            'classe_id'                 => $classe['id'],
+            'parcour_id'                => $parcour['id'], 
+            'is_active'                 => true,
+            'email_verified_at'         => now(),
+            'password'                  => bcrypt($this->password),
+            'year_university'           => $setting->year_period
+            
         ]);
 
         // Attribuer le rôle 'apprenant' au nouvel utilisateur

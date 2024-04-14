@@ -31,21 +31,30 @@ class Question extends Model implements HasMedia
         'comment',
     ];
 
+    public function typeSujet()
+    {
+        return $this->belongsTo(TypeSujet::class);
+    }
 
     public function sujet()
     {
         return $this->belongsTo(Sujet::class);
     }
 
-    public function getFilePathAttribute()
+    // public function getFilePathAttribute()
+    // {
+    //     return $this->getFirstMediaUrl('sujet_examen_files');
+    // }
+
+    public function getPhotoUrlAttribute()
     {
-        return $this->getFirstMediaUrl('sujet_examen_files');
+        return $this->getFirstMedia('sujet_examen_files')?->getUrl('sujet_examen_files');
     }
 
     public function getFileExtensionAttribute()
     {
         $media = $this->getFirstMedia('sujet_examen_files');
-        return $media ? $media->extension : null;
+        return $media?->extension;
     }
 
     public function getFileSizeAttribute()
@@ -65,31 +74,30 @@ class Question extends Model implements HasMedia
     }
 
 
-    public function registerMediaColections()
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection('sujet_examen_files')
-            ->acceptsFile(File::WORD)
-            ->acceptsFile(File::POWERPOINT)
-            ->acceptsFile(File::PDF);
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']);
+
         $this->addMediaCollection('downloads')
             ->singleFile();
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this
             ->addMediaConversion('preview')
             ->fit(Fit::Crop, 300, 300)
             ->nonQueued();
 
-        $this->addMediaConversion('pdf')
-            ->fit(Fit::Fit, 1200, 1200)
-            ->nonQueued()
-            ->onlySource(File::PDF);
+        // $this->addMediaConversion('pdf')
+        //     ->fit(Fit::Fit, 1200, 1200)
+        //     ->nonQueued()
+        //     ->onlySource(File::PDF);
 
-        $this->addMediaConversion('office')
-            ->fit(Fit::Fit, 1200, 1200)
-            ->nonQueued()
-            ->onlySource(File::WORD, File::POWERPOINT);
+        // $this->addMediaConversion('office')
+        //     ->fit(Fit::Fit, 1200, 1200)
+        //     ->nonQueued()
+        //     ->onlySource(File::WORD, File::POWERPOINT);
     }
 }

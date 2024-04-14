@@ -21,8 +21,10 @@ return new class extends Migration
             $table->boolean('status')->default(true);
             $table->integer('classe_id')->nullable();
             $table->integer('parcour_id')->nullable();
+            $table->string('year_university')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

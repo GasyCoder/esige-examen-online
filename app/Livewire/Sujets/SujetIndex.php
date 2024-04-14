@@ -3,6 +3,7 @@
 namespace App\Livewire\Sujets;
 
 use App\Models\Sujet;
+use App\Models\Setting;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Services\MatiereService;
@@ -11,7 +12,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class SujetIndex extends Component
 {   
     use LivewireAlert, WithPagination;
-    
+    protected $paginationTheme = 'bootstrap';
     public $page = 10;
     public $matieres;
     public $name, $matiere_id, $timer, $dateFin;
@@ -47,12 +48,14 @@ class SujetIndex extends Component
 
     public function create()
     {
+        $setting = Setting::first();
         $sujet = Sujet::create([
-            'name'                      => $this->name,
+            'name'                      => 'Sujet d\'Examen',
             'matiere_id'                => $this->matiere_id,
             'timer'                     => $this->timer,
             'dateFin'                   => $this->dateFin,
             'type_sujet_id'             => $this->type_sujet_id,
+            'year_university'           => $setting->year_period
         ]);
 
         //dd($sujet);
@@ -77,7 +80,7 @@ class SujetIndex extends Component
     {
         $sujet = Sujet::findOrFail($this->sujetId);
         $sujetData = [
-            'name'           => $this->name,
+            'name'           => 'Sujet d\'Examen',
             'matiere_id'     => $this->matiere_id,
             'timer'          => $this->timer,
             'dateFin'        => $this->dateFin,
@@ -122,5 +125,16 @@ class SujetIndex extends Component
         $sujet = Sujet::onlyTrashed()->findOrFail($id);
         $sujet->restore();
         $this->alert('success', 'Sujet a été restauré!');
+    }
+
+
+    public function forceDelete($id)
+    {
+        $sujet = Sujet::onlyTrashed()->findOrFail($id);
+
+        $sujet->forceDelete();
+
+        $this->alert('success', 'Sujet a été supprimé définitivement!');
+        return redirect()->to('sujets');
     }
 }

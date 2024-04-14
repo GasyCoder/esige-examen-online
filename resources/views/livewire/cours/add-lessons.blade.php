@@ -6,7 +6,9 @@
             <div class="pb-3 mb-3 border-bottom d-md-flex align-items-center justify-content-between">
                 <x-title-page :title="$title" />
                 <div>
-                    <a href="#" class="btn btn-outline-secondary">Retour à tous les cours</a>
+                    <a href="{{ route('cours') }}" class="btn btn-outline-secondary">
+                        <i class="fe fe-arrow-left"></i> Retour à tous les cours
+                    </a>
                 </div>
             </div>
         </div>
@@ -28,13 +30,13 @@
                         <!-- Form -->
                         <div class="row">
                             <div class="mb-3">
-                                <!-- Title -->
-                                <label for="title" class="form-label">Titre cours</label>
-                                <input type="text" id="title" wire:model="title" class="form-control text-dark"
+                                <!-- Title Cour -->
+                                <label for="title_cour" class="form-label">Titre cours</label>
+                                <input type="text" id="title_cour" wire:model="title_cour" class="form-control text-dark"
                                     placeholder="Titre">
                                 <small>Les titres de cour sous 60 caractères. Écrivez un titre qui décrit le contenu du matière. Contextualisez
                                 pour les étudiants.</small>
-                                <div class="invalid-feedback">Please enter title.</div>
+                                @error('title_cour') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <!-- sous titre -->
                             <div class="mb-3">
@@ -66,7 +68,7 @@
                             <option value="{{ $matiere['id'] }}">{{ $matiere['name'] }}</option>
                         @endforeach
                     </select>
-                    <div class="invalid-feedback">Please choose category.</div>
+                     @error('matiere_id') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-3">
                     <!-- Title -->
@@ -81,9 +83,21 @@
                     </div>
                     <small>Veuillez ajouter lien format URL</small>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label" for="timer">
+                        Date de Fin
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="input-group me-3" wire:ignore>
+                        <input type="text" class="form-control flatpickr" wire:model="dateFin" id="dateFin">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fe fe-calendar"></i></span>
+                    </div>
+                    @error('dateFin') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
             </div>
             <!-- button -->
-            <button type="submit" class="btn btn-primary">Ajouter</button>
+            <button type="submit" class="btn btn-primary">Ajouter +</button>
         </div>
     </div>
     </form>

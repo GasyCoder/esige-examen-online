@@ -3,17 +3,53 @@
 namespace App\Livewire\Cours;
 
 use App\Models\Lesson;
+use App\Models\Setting;
 use Livewire\Component;
+use App\Models\Exercice;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use App\Services\MatiereService;
+use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Lessons extends Component
 {   
-    use LivewireAlert, WithPagination;
+    use LivewireAlert, WithPagination, WithFileUploads;
+    protected $paginationTheme = 'bootstrap';
     public $matieres;
     public $is_publish;
     public $page = 10;
+    public $file_path;
+    public $dateFin;
+    public $lessonId;
+    public $title_cour;
+
+    public function addExo($id)
+    {
+        $lesson = Lesson::findOrFail($id);
+        $this->lessonId = $lesson->id;
+        $this->title_cour = $lesson->title_cour;
+    }
+
+    public function save()
+    {   
+        $setting = Setting::first();
+        $exo = Exercice::create([
+            'lesson_id'   => $this->lessonId,
+            'dateFin'=> $this->dateFin,
+            'year_university'   => $setting->year_period
+        ]);
+
+        if ($this->file_path) {
+        $exo->addMedia($this->file_path->getRealPath())
+            ->usingName('exercice_' . $this->title_cour)
+            ->toMediaCollection('exercice_files');
+        }
+        //dd($exo);
+        $this->reset();
+        $this->alert('success', 'Exercice ajoutée avec succès !');
+        return redirect()->route('cours');
+    }
 
     public function publier($id)
     {
@@ -62,7 +98,6 @@ class Lessons extends Component
 
     public function render(MatiereService $matiereService)
     {   
-        $title = 'Liste des cours';
         $this->matieres = $matiereService->getMatieres();
         return view('livewire.cours.index', [
             'lessons' => Lesson::query()
@@ -78,7 +113,7 @@ class Lessons extends Component
             'countTrash' => Lesson::onlyTrashed()->count(),
             'countLesson' => Lesson::withoutTrashed()->count(),
 
-            'title'  => $title,
+            'title'  => 'Liste des cours',
         ]);
     }
 }

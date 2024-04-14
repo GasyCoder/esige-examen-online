@@ -5,13 +5,14 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
-
+    use HasFactory, SoftDeletes, Notifiable, HasRoles;
+    protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
@@ -25,7 +26,8 @@ class User extends Authenticatable
         'status',
         'email_verified_at',
         'classe_id',
-        'parcour_id'
+        'parcour_id',
+        'year_university',
     ];
 
     /**
@@ -52,5 +54,9 @@ class User extends Authenticatable
         ];
     }
 
+    public function exercises()
+    {
+        return $this->belongsToMany(Exercice::class, 'student_id', 'exercice_id');
+    }
 
 }

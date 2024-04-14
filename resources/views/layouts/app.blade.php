@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <link rel="stylesheet" href="{{ asset('assets/libs/glightbox/dist/css/glightbox.min.css') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -34,13 +35,17 @@
     </div>
 
     @stack('scripts')
-
     <script src="{{ asset('assets/libs/bs-stepper/dist/js/bs-stepper.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/beStepper.js') }}"></script>
     <script src="{{ asset('assets/libs/quill/dist/quill.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/editor.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/validation.js') }}"></script>
     <script src="{{ asset('assets/libs/yaireo/tagify/dist/tagify.min.js') }}"></script>
+
+    <script src="{{asset('assets/libs/tippy.js/dist/tippy-bundle.umd.min.js')}}"></script>
+    <script src="{{asset('assets/js/vendors/tooltip.js')}}"></script>
+    <script src="{{asset('assets/libs/glightbox/dist/js/glightbox.min.js')}}"></script>
+    <script src="{{asset('assets/js/vendors/glight.js')}}"></script>
     <!-- Scripts -->
     <!-- Libs JS -->
     <script src="{{ asset('assets/libs/popperjs/core/dist/umd/popper.min.js') }}"></script>

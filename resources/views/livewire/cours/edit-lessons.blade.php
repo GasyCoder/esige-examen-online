@@ -6,7 +6,7 @@
             <div class="pb-3 mb-3 border-bottom d-md-flex align-items-center justify-content-between">
                 <x-title-page :title="$title" />
                 <div>
-                    <a href="#" class="btn btn-outline-secondary">Retour à tous les cours</a>
+                    <a href="{{ route('cours') }}" class="btn btn-outline-secondary">Retour à tous les cours</a>
                 </div>
             </div>
         </div>
@@ -28,9 +28,9 @@
                         <!-- Form -->
                         <div class="row">
                             <div class="mb-3">
-                                <!-- Title -->
-                                <label for="title" class="form-label">Titre cours</label>
-                                <input type="text" id="title" wire:model="title" class="form-control text-dark"
+                                <!-- Title Cour -->
+                                <label for="title_cour" class="form-label">Titre cours</label>
+                                <input type="text" id="title_cour" wire:model="title_cour" class="form-control text-dark"
                                     placeholder="Titre">
                                 <small>Les titres de cour sous 60 caractères. Écrivez un titre qui décrit le contenu
                                     du matière. Contextualisez
@@ -76,10 +76,13 @@
                         <input type="file" id="file_path" class="form-control text-dark" wire:model="file_path">
                         @if($lesson->hasMedia('cours_files'))
                         <div class="mt-2">
-                            <span class="badge bg-info">Nom du fichier : {{ $lesson->getFirstMedia('cours_files')->name }}</span>
+                            <a href="{{ $lesson->getFirstMedia('cours_files')->getFullUrl() }}" target="_blank" class="text-primary">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                                fichier-{{ $lesson->file_extension }} {{ Str::limit($lesson->getFirstMedia('cours_files')->name, 28) }}
+                            </a>
                         </div>
                         @endif
-                        <div class="invalid-feedback">Please enter title.</div>
+                        @error('file_path') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
                         <label for="video_path" class="form-label">URL Vidéo</label> <small>(facultatif)</small>
@@ -88,6 +91,18 @@
                                 aria-describedby="basic-addon3">
                         </div>
                         <small>Veuillez ajouter lien format URL</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="timer">
+                            Date de Fin
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group me-3" wire:ignore>
+                            <input type="text" class="form-control flatpickr" wire:model="dateFin" id="dateFin">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fe fe-calendar"></i></span>
+                        </div>
+                        @error('dateFin') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <!-- button -->

@@ -9,17 +9,15 @@
             </div>
             <div class="modal-body">
                 <form class="needs-validation" novalidate="" wire:submit="create">
-                    <div class="mb-2 mb-3">
+                    {{-- <div class="mb-2 mb-3">
                         <label class="form-label" for="name">
                             Titre
                             <span class="text-danger">*</span>
                         </label>
                         <select class="form-select" id="name" wire:model="name">
-                            <option value="">--Choisir--</option>
-                            <option value="Examen">Examen normal</option>
-                            <option value="Contrôle continue">Contrôl continue</option>
+                            <option value="Sujet d'Examen" selected="">Sujet d'Examen</option>
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="mb-2 mb-3">
                         <label class="form-label" for="matiere_id">Matières</label>
                         <select class="form-select" id="matiere_id" wire:model="matiere_id">

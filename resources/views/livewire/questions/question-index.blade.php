@@ -28,5 +28,9 @@
     @include('livewire.questions.trash')
 @endif
 
+<!-- Card Footer -->
+        <div class="card-footer mb-0 pagination justify-content-center">
+            {{ $questions->links() }}
+        </div>
 </section>
 </div>

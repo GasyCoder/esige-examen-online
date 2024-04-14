@@ -21,7 +21,8 @@ return new class extends Migration
             $table->integer('reference');
             $table->boolean('isActive')->default(true);
             $table->timestamps('dateFin');
-             $table->timestamps();
+            $table->string('year_university')->nullable();
+            $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('type_sujet_id')->references('id')->on('type_sujets')->onDelete('cascade');

@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserAdminSeeder::class,
             TypeSujetSeeder::class,
+            CalendarSeeder::class,
+            SettingSeeder::class,
 
         ]);
 

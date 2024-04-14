@@ -1,4 +1,4 @@
-<!--Tab Cours -->
+<!--Tab Sujet -->
 <div class="tab-pane fade show active" id="sujets" role="tabpanel" aria-labelledby="sujets-tab">
     <div class="overflow-y-hidden border-0 table-responsive">
         @if($countSujet)
@@ -24,7 +24,7 @@
                             <!-- quiz content -->
                             <div class="ms-3">
                                 <span class="text-inherit">
-                                    <strong>Sujet-{{ $sujet->reference }}-{{ $sujet->name }}</strong> 
+                                    <strong>{{ $sujet->name }}-{{ $sujet->reference }}</strong> 
                                     <small>
                                         @if($sujet->isActive == true)
                                         <span class="align-middle badge-dot bg-success me-0 ms-1 d-inline-block"></span>
@@ -103,11 +103,11 @@
                                     <i class="fe fe-eye dropdown-item-icon"></i>
                                     Voir questions
                                 </a>
-                                <button wire:click="edit({{ $sujet->id }})" data-bs-toggle="modal" data-bs-target="#editSujet" class="dropdown-item">
+                                <button wire:click.live="edit({{ $sujet->id }})" data-bs-toggle="modal" data-bs-target="#editSujet" class="dropdown-item">
                                     <i class="fe fe-edit dropdown-item-icon"></i>
                                     Modifier
                                 </button>
-                                <button class="dropdown-item" wire:click="delete({{ $sujet->id }})">
+                                <button class="dropdown-item" wire:click.live="delete({{ $sujet->id }})">
                                     <i class="fe fe-trash dropdown-item-icon"></i>
                                     Corbeille
                                 </button>

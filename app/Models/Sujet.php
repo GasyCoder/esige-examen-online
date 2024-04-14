@@ -19,13 +19,19 @@ class Sujet extends Model
         'isActive',
         'uuid',
         'dateFin',
-        'type_sujet_id'
+        'type_sujet_id',
+        'year_university',
     ];
 
     protected $casts = [
         'isActive' => 'boolean',
         'dateFin' => 'datetime',
     ];
+
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
+    }
 
     public function questions()
     {

@@ -26,7 +26,7 @@ class CheckSujetOuvert
 
         if ($sujetOuvert) {
             // Si le sujet a déjà été ouvert par l'étudiant, redirigez-le vers la page d'accueil
-            return redirect()->route('student.panel')->with('status', 'Vous avez déjà ouvert ce sujet.');
+            return redirect()->route('myexamen')->with('status', 'Vous avez déjà ouvert ce sujet.');
         }
 
         // Sinon, marquez le sujet comme ouvert par l'étudiant
