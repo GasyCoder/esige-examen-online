@@ -1,12 +1,39 @@
 <div>
 <div class="mt-0 row mt-md-4">
+    <div class="col-lg-3 col-md-4 col-12">
     @include('livewire.students.side-menu')
+    <div class="mt-4 mb-4 border-0 card mb-lg-0">
+        <!-- Card body -->
+        <div class="card-body">
+            <div class="pb-3 mb-3 d-flex align-items-center justify-content-between border-bottom">
+                <div>
+                    <h4 class="mb-0 fw-bold">{{ $lessons->count() }}</h4>
+                    <p class="mb-0 fs-6">Cours</p>
+                </div>
+                <div>
+                    <span><i class="fe fe-file-text fs-3"></i></span>
+                </div>
+            </div>
+            <div class="pb-3 mb-3 d-flex align-items-center justify-content-between border-bottom">
+                <div>
+                    <h4 class="mb-0 fw-bold">{{ $totalExercices }}</h4>
+                    <p class="mb-0 fs-6">Exercices</p>
+                </div>
+                <div>
+                    <span><i class="fe fe-help-circle fs-3"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     <div class="col-lg-9 col-md-8 col-12">
         <!-- Card -->
         <div class="mb-4 card">
             <!-- Card header -->
             <div class="card-header">
-                <h3 class="mb-0">Cours</h3>
+                <h4 class="mb-0">Cours
+                    <span class="fs-6">({{ $lessons->count() }})</span>
+                </h4>
                 <span>Consultez vos cours comme en direct.</span>
             </div>
             <!-- Card body -->

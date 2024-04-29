@@ -16,11 +16,14 @@ class AddLessons extends Component
 
     public $title_cour, $sub_title;
     public $body;
-    public $matiere_id, $matieres;
+    public $matiere_id, $matieres, $matieres_not_cours;
     public $file_path, $video_path;
     public $is_publish = true;
     public $dateFin;
 
+    protected $rules = [
+        'body' => 'required',
+    ];
     public function save()
     {
         $setting = Setting::first();
@@ -49,6 +52,7 @@ class AddLessons extends Component
     public function render(MatiereService $matiereService)
     {   
         $this->matieres = $matiereService->getMatieres();
+        $this->matieres_not_cours = $matiereService->getMatieresNotLesson();
         return view('livewire.cours.add-lessons', [
 
             'title'  => 'Nouvelle cours',

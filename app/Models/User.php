@@ -6,12 +6,13 @@ namespace App\Models;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, SoftDeletes, Notifiable, HasRoles;
+    use HasFactory, SoftDeletes, CanResetPassword, Notifiable, HasRoles;
     protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
@@ -21,13 +22,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
         'is_active',
         'status',
         'email_verified_at',
         'classe_id',
         'parcour_id',
+        'adresse',
         'year_university',
+        'photo'
     ];
 
     /**
@@ -59,4 +63,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Exercice::class, 'student_id', 'exercice_id');
     }
 
+    public function ecolages()
+    {
+        return $this->hasMany(Ecolage::class);
+    }
 }

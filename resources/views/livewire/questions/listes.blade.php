@@ -57,12 +57,12 @@
 
         <!-- button -->
         <div class="mt-3">
-            <a href="#!" wire:click="edit({{ $question->id }})" data-bs-toggle="modal"
+            <a href="#!" wire:click.live="edit({{ $question->id }})" data-bs-toggle="modal"
                 data-bs-target="#editQuestionModal" class="btn btn-outline-success btn-sm">
                 <i class="fe fe-edit"></i>
             </a>
 
-            <a href="#!" wire:click="delete({{ $question->id }})"
+            <a href="#!" wire:click.live="delete({{ $question->id }})"
                 class="btn btn-outline-danger ms-2 btn-sm">
                 <i class="fe fe-trash"></i>
             </a>

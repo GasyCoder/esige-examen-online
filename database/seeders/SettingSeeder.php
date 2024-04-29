@@ -19,7 +19,9 @@ class SettingSeeder extends Seeder
             'message_disabled'  => 'Le site est actuellement désactivé.',
             'logo'              => 'logo.jpg',
             'banner'            => 'banner.jpg',
+            'exam_session'      => '1',
             'year_period'       => '2023-2024',
+            'conditions'        => 'Conditions à l\'examen',
         ]);
     }
 }

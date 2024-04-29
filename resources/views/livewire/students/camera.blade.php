@@ -1,7 +1,7 @@
 <div>
 <!-- Bg -->
 <div class="pt-4 rounded-top-md"
-style="background: url({{ asset('assets/images/students/banner.png') }}) no-repeat; background-size: cover; height: 100px">
+style="background: url({{ asset('storage/' .$setting->banner) }}) no-repeat; background-size: cover; height: 100px">
 </div>
 <div class="px-4 pt-2 pb-2 rounded-0 rounded-bottom">
 <div class="d-flex align-items-end justify-content-between">

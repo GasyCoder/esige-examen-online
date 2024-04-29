@@ -9,20 +9,11 @@
             </div>
             <div class="modal-body">
                 <form class="needs-validation" novalidate="" wire:submit="create">
-                    {{-- <div class="mb-2 mb-3">
-                        <label class="form-label" for="name">
-                            Titre
-                            <span class="text-danger">*</span>
-                        </label>
-                        <select class="form-select" id="name" wire:model="name">
-                            <option value="Sujet d'Examen" selected="">Sujet d'Examen</option>
-                        </select>
-                    </div> --}}
                     <div class="mb-2 mb-3">
                         <label class="form-label" for="matiere_id">Matières</label>
                         <select class="form-select" id="matiere_id" wire:model="matiere_id">
                             <option value="">--Choisir--</option>
-                            @foreach ($matieres as $matiere)
+                            @foreach($matieres_sans_sujet as $matiere)
                             <option value="{{ $matiere['id'] }}">{{ $matiere['name'] }}</option>
                             @endforeach
                         </select>

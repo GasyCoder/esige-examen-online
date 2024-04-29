@@ -1,27 +1,35 @@
 <?php
 
+use Illuminate\Support\Str;
 use App\Livewire\Api\ClasseApi;
 use App\Livewire\Cours\Lessons;
 use App\Livewire\Api\MatiereApi;
 use App\Livewire\Api\ParcourApi;
 use App\Livewire\Api\StudentApi;
 use App\Livewire\Cours\Exercices;
+use App\Livewire\Settings\Safety;
 use App\Livewire\Cours\AddLessons;
 use App\Livewire\Cours\EditLessons;
 use App\Livewire\Sujets\SujetIndex;
 use App\Livewire\Users\UserStudents;
 use App\Livewire\Users\UserTeachers;
 use App\Livewire\Responses\Resultats;
+use App\Livewire\Settings\Conditions;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Autres\EcolageListes;
+use App\Livewire\Programmes\Programmes;
 use App\Livewire\Responses\ReplyExamen;
+use App\Livewire\Settings\AdminControl;
 use App\Livewire\Students\Menus\Examens;
-use App\Livewire\Responses\RepondreSujet;
 use App\Livewire\Questions\QuestionIndex;
 use App\Livewire\Responses\ReplyExercice;
+use App\Livewire\Responses\RepondreSujet;
 use App\Livewire\Students\Menus\Ecolages;
+use App\Livewire\Students\Menus\Profiles;
 use App\Http\Controllers\ProfileController;
-use App\Livewire\Students\Menus\Programmes;
+use App\Livewire\Programmes\ProgrammeClasse;
 use App\Livewire\Responses\ReponseByStudent;
+use App\Livewire\Students\Menus\MyProgrammes;
 use App\Livewire\Students\Menus\Cours\MyCours;
 use App\Livewire\Students\Menus\Cours\ShowCours;
 use App\Livewire\Students\Menus\ResultExercices;
@@ -29,15 +37,10 @@ use App\Livewire\Students\Menus\ResultExercices;
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
         // Routes Admin
         Route::middleware(['role:admin'])->prefix('admin')->group(function () {
 
-            Route::get('/panel', function () {
+            Route::get('/', function () {
                 return view('admin');
             })->name('admin.panel');
 
@@ -61,11 +64,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
             
             Route::get('/user-teachers', UserTeachers::class)->name('user_teachers');
             Route::get('/user-students', UserStudents::class)->name('user_students');
+            Route::get('/parametres', AdminControl::class)->name('parametres');
+            Route::get('/securite', Safety::class)->name('admin_safety');
+            Route::get('/conditions', Conditions::class)->name('conditions');
+
+            Route::get('/ecolages-listes', EcolageListes::class)->name('ecolages_liste');
+            Route::get('/programmes-listes', ProgrammeClasse::class)->name('classe_programme');
+            Route::get('/ouvrir-programme/{id}', Programmes::class)->name('open_programme');
             
         });
 
         // Routes Student
-        Route::middleware(['role:student'])->prefix('etudiant')->group(function () {
+        Route::middleware(['role:student', 'check.site.status'])->prefix('etudiant')->group(function () {
 
             Route::get('/panel', function () {
                 return view('student');
@@ -74,11 +84,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/mon-cours', MyCours::class)->name('mycours')->middleware('check.user.status');
             Route::get('/mon-exercice', ResultExercices::class)->name('myexercice')->middleware('check.user.status');
             Route::get('/mon-examen', Examens::class)->name('myexamen')->middleware('check.user.status');
-            Route::get('/mon-programme', Programmes::class)->name('myprogramme')->middleware('check.user.status');
+            Route::get('/mon-programme', MyProgrammes::class)->name('myprogramme')->middleware('check.user.status');
             Route::get('/detail-cour/{uuid}', ShowCours::class)->name('detailCour')->middleware('check.user.status');
 
             Route::get('/mon-ecolage', Ecolages::class)->name('myecolage');
-
+            Route::get('/mon-profil', Profiles::class)->name('myprofile');
         
             Route::get('/ouvrir-sujet-qcm/{uuid}', RepondreSujet::class)->name('openSujet')->middleware('check.sujet.ouvert');
         });
@@ -98,4 +108,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 require __DIR__.'/auth.php';
 Route::redirect('/', '/login');
-Route::redirect('/register', '/login');
+Route::redirect('/register', '/');

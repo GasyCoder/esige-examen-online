@@ -121,9 +121,10 @@ class QuestionIndex extends Component
         }
 
         //dd($question);
-
         $this->alert('success', 'Question ajouté avec succès!');
-        return redirect()->route('question_sujet', ['type' => $this->sujet->typeSujet, 'uuid' => $this->sujet->uuid]);
+        $this->reset(['question_texte', 'generalQuestion', 'correctResponse', 
+        'pointResponse', 'image_required', 'comment', 'chooseResponse']);
+        //return redirect()->route('question_sujet', ['type' => $this->sujet->typeSujet, 'uuid' => $this->sujet->uuid]);
     }
 
     public function edit($id)
@@ -217,7 +218,7 @@ class QuestionIndex extends Component
             'questions' => Question::query()
                 ->withoutTrashed()
                 ->where('sujet_id', $this->sujet->id)
-                ->latest()
+                ->orderBy('id', 'asc')
                 ->Simplepaginate($this->page),
 
             'trashes'  => Question::query()

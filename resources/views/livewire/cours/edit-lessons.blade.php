@@ -1,4 +1,4 @@
-<div>
+<div wire:ignore>
 <section class="p-4 container-fluid">
     <div class="row">
         <!-- Page header -->
@@ -46,7 +46,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="category">Résumé</label>
-                                <textarea class="form-control text-dark" id="body" rows="8" wire:model="body"
+                                <textarea class="form-control text-dark" id="lesson-editor" rows="10" wire:model="body"
                                     placeholder="Résumé du cour"></textarea>
                                 <small>2000 caractères maximum.</small>
                             </div>
@@ -111,4 +111,23 @@
         </div>
     </form>
 </section>
+
+@push('scripts')
+<script src="https://cdn.tiny.cloud/1/93m9leol31sh416z9kd7f3np6vnhuhd0uigz2ti0nli13ryj/tinymce/6/tinymce.min.js"
+    referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+    selector: 'textarea#lesson-editor',
+    height: 400,
+    plugins: 'code table lists wordcount preview textcolor',
+    toolbar: 'undo redo | formatselect| bold italic | alignleft aligncenter alignright alignjustify | indent outdent | + bullist numlist | fontselect | fontsizeselect | forecolor backcolor | code | table | preview | removeformat',
+    setup: function (editor) {
+        editor.on('change', function () {
+            let content = editor.getContent();
+            @this.set('body', content);
+        });
+    }
+});
+</script>
+@endpush
 </div>

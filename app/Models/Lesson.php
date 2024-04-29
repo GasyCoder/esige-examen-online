@@ -82,24 +82,14 @@ class Lesson extends Model implements HasMedia
 
         $this->addMediaCollection('downloads')
             ->singleFile();
-
     }
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this
             ->addMediaConversion('preview')
             ->fit(Fit::Crop, 300, 300)
             ->nonQueued();
-
-        // $this->addMediaConversion('pdf')
-        //     ->fit(Fit::Fit, 1200, 1200)
-        //     ->nonQueued()
-        //     ->onlySource(File::PDF);
-
-        // $this->addMediaConversion('office')
-        //     ->fit(Fit::Fit, 1200, 1200)
-        //     ->nonQueued()
-        //     ->onlySource(File::WORD, File::POWERPOINT);
     }
 
     protected static function boot()

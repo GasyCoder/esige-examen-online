@@ -45,13 +45,15 @@ class EditLessons extends Component
     {   
         $setting = Setting::first();
         $lesson = Lesson::findOrFail( $this->lessonId );
+
+        $dateFinTimestamp = strtotime($this->dateFin);
         $lessonData = [
             'title_cour'        => $this->title_cour,
             'sub_title'         => $this->sub_title,
             'body'              => $this->body,
             'matiere_id'        => $this->matiere_id,
             'video_path'        => $this->video_path,
-            'dateFin'           => $this->dateFin,
+            'dateFin'           => date('Y-m-d H:i:s', $dateFinTimestamp),
             'is_publish'        => $this->is_publish,
             'year_university'   => $setting->year_period
         ];

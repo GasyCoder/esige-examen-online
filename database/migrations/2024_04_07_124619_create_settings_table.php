@@ -18,7 +18,9 @@ return new class extends Migration
             $table->text('message_disabled')->nullable();
             $table->string('logo')->nullable();
             $table->string('banner')->nullable();
+            $table->integer('exam_session')->nullable();
             $table->string('year_period')->nullable();
+            $table->text('conditions')->nullable();
             $table->timestamps();
         });
     }

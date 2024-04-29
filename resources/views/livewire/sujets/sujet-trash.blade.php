@@ -33,9 +33,14 @@
                                         {{ $matiere['classe']['sigle'] }} -
                                         @endif
                                     </span>
+                                    @if(isset($matiere['parcours']) && is_array($matiere['parcours']) && count($matiere['parcours']) > 0)
                                     @foreach($matiere['parcours'] as $parcour)
-                                    <span class="badge badge-sm bg-secondary">{{ $parcour['sigle'] }}</span>
+                                    <span class="">{{ $parcour['sigle'] }},</span>
                                     @endforeach
+                                    @else
+                                    <!-- Affichez un message d'erreur ou de remplacement ici -->
+                                    <span>Aucun parcours disponible</span>
+                                    @endif
                                 </div>
                             </div>
                         </a>

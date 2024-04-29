@@ -58,11 +58,11 @@
                         <span>Question {{ $index+1 }}</span>
                         <h4 class="mt-1 mb-3">{{ $question->question_texte }}</h4>
                         <span>Réponses {{ $index+1 }}</span>
-                        <div class="list-group mb-3">
-                            <textarea class="form-control" id="reponse_textarea.{{ $question->id }}"
-                                wire:model.live="reponse_textarea.{{ $question->id }}" rows="4"
-                                {{ $isDisabled[$question->id] ? 'disabled' : '' }}>
-                            </textarea>
+                        <div class="mb-3 list-group">
+                        <textarea class="form-control" id="reponse_textarea.{{ $question->id }}"
+                            wire:model.live="reponse_textarea.{{ $question->id }}" rows="4"
+                            {{ $isDisabled[$question->id] ? 'disabled' : '' }}>
+                        </textarea>
                         </div>
                         @if($question->image_required != null)
                         <div>

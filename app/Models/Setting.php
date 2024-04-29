@@ -15,6 +15,15 @@ class Setting extends Model
         'message_disabled',
         'banner',
         'logo',
+        'exam_session',
         'year_period',
+        'conditions',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_disabled' => 'boolean',
+        ];
+    }
 }

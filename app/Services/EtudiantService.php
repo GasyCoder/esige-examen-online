@@ -41,6 +41,17 @@ class EtudiantService
         return [];
     }
 
+    public function findById($id)
+    {
+        $etudiants = $this->getEtudiants();
+        foreach ($etudiants as $etudiant) {
+            if ($etudiant['id'] == $id) {
+                return $etudiant;
+            }
+        }
+        return null;
+    }
+
     public function count()
     {
         $etudiants = $this->getEtudiants();

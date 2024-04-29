@@ -88,7 +88,7 @@ class RepondreSujet extends Component
 
     public function render()
     {
-        $this->questions = Question::where('sujet_id', $this->sujet_question->id)->latest()->get();
+        $this->questions = Question::where('sujet_id', $this->sujet_question->id)->orderBy('id', 'asc')->get();
         $this->totalQuestions = $this->questions->count();
 
         if (session()->has('chooseResponse')) {

@@ -29,7 +29,7 @@
 @endif
 
 <!-- Card Footer -->
-        <div class="card-footer mb-0 pagination justify-content-center">
+        <div class="mb-0 card-footer pagination justify-content-center">
             {{ $questions->links() }}
         </div>
 </section>

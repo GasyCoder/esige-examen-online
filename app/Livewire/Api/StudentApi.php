@@ -31,7 +31,14 @@ class StudentApi extends Component
         $this->classeService = $classeService;
         $this->parcourService = $parcourService;
         $this->etudiants = $etudiantService->getEtudiants();
-        $this->studentsWithAccount = User::where('status', true)->pluck('email')->toArray();
+
+        if (empty($this->etudiants)) {
+            $this->alert('warning', 'Aucun étudiant n\'a été trouvé.');
+        } else {
+            $this->studentsWithAccount = User::where('status', true)->pluck('email')->toArray();
+        }
+
+        // $this->studentsWithAccount = User::where('status', true)->pluck('email')->toArray();
     }
 
 
@@ -55,10 +62,10 @@ class StudentApi extends Component
     public function create(ClasseService $classeService, ParcourService $parcourService)
     {
         // Vérifiez si les variables nécessaires sont définies
-        if (!isset($this->email) || !isset($this->password)) {
-            $this->alert('warning', 'Email ou mot de passe manquant!');
-            return;
-        }
+        // if (!isset($this->email) || !isset($this->password)) {
+        //     $this->alert('warning', 'Email ou mot de passe manquant!');
+        //     return;
+        // }
 
         // Vérifiez si l'email est unique
         if (User::where('email', $this->email)->where('status', true)->exists()) {
@@ -76,9 +83,9 @@ class StudentApi extends Component
             'name'                      => $this->fname,
             'classe_id'                 => $classe['id'],
             'parcour_id'                => $parcour['id'], 
-            'is_active'                 => true,
+            'is_active'                 => false,
             'email_verified_at'         => now(),
-            'password'                  => bcrypt($this->password),
+            //'password'                  => bcrypt($this->password),
             'year_university'           => $setting->year_period
             
         ]);
@@ -93,7 +100,7 @@ class StudentApi extends Component
 
     public function render()
     {
-        $title = 'Etudiants';
+        $title = 'Etudiants inscrit';
         return view('livewire.Api.students.listes', [
             'title' => $title,
             'etudiants' => $this->etudiants,

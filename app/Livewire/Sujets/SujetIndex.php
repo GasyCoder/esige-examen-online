@@ -19,13 +19,18 @@ class SujetIndex extends Component
     public $isActive = false;
     public $sujetId;
     public $type_sujet_id;
+    public $matieres_sans_sujet;
     protected $rules = [
-    'timer' => 'required|integer|between:0,255',
+        'matiere_id' => 'required',
+        'timer' => 'required|integer|between:0,255',
+        'dateFin' => 'required',
+        'type_sujet_id' => 'required|integer|exists:type_sujets,id',
     ];
     public function render(MatiereService $matiereService)
     {   
         $title = 'Liste des sujets';
         $this->matieres = $matiereService->getMatieres();
+        $this->matieres_sans_sujet = $matiereService->getMatieresNotSujet();
         return view('livewire.sujets.sujet-index', [
             'sujets' => Sujet::query()
                 ->withoutTrashed()
@@ -36,18 +41,17 @@ class SujetIndex extends Component
                 ->onlyTrashed()
                 ->latest()
                 ->paginate($this->page),
-
             'countTrash' => Sujet::onlyTrashed()->count(),
             'countSujet' => Sujet::withoutTrashed()->count(),
-
+            'matieres_sans_sujet' => $this->matieres_sans_sujet,
             'title'  => $title,
-
         ]);
-
     }
 
     public function create()
-    {
+    {   
+        $this->validate();
+        
         $setting = Setting::first();
         $sujet = Sujet::create([
             'name'                      => 'Sujet d\'Examen',
@@ -135,6 +139,6 @@ class SujetIndex extends Component
         $sujet->forceDelete();
 
         $this->alert('success', 'Sujet a été supprimé définitivement!');
-        return redirect()->to('sujets');
+        return redirect()->route('sujets');
     }
 }

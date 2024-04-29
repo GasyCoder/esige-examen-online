@@ -1,6 +1,5 @@
 <div class="py-3 bg-light col-xl-12 col-md-12 col-12">
     <div class="row gy-4">
-
     @if(Auth::user()->is_active === true)
         <div class="col-lg-3 col-md-4 col-12">
             <!-- card -->
@@ -93,7 +92,7 @@
                             <!-- heading -->
                             <h4 class="mb-0">Programmes</h4>
                             <!-- text -->
-                            <p class="mb-0">0 programmes</p>
+                            <p class="mb-0">{{ $programmes + $programmeAlls }} events</p>
                         </div>
                         </a>
                         <!-- icon -->
@@ -133,7 +132,7 @@
                             <!-- heading -->
                             <h4 class="mb-0">Ecolage</h4>
                             <!-- text -->
-                            <p class="mb-0">3 mois restant</p>
+                            <p class="mb-0">{{ $totalMois }} mois restant</p>
                         </div>
                         </a>
                         <!-- icon -->
@@ -150,7 +149,5 @@
             </div>
         </div>
         <!-- button -->
-
-
     </div>
 </div>

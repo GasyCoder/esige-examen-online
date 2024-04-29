@@ -51,17 +51,19 @@
                                 {{ $matiere['classe']['name'] }} -
                                 @endif
                             </span>
-                            @foreach($matiere['parcours'] as $parcour)
+                            @if (isset($matiere['parcours']) && is_array($matiere['parcours']))
+                            @foreach ($matiere['parcours'] as $parcour)
                             <span class="">{{ $parcour['name'] }},</span>
                             @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="d-none d-lg-block">
-                    <a href="#!" class="btn btn-primary me-3" wire:click.prevent="addQuestion()">
+                    <a href="#!" class="btn btn-primary me-3" wire:click.live="addQuestion()">
                         <i class="fe fe-plus-circle me-2"></i>Nouvelles questions</a>
 
-                    <a href="#!" class="btn btn-secondary ms-3" wire:click.prevent="trashQuestion()">
+                    <a href="#!" class="btn btn-secondary ms-3" wire:click.live="trashQuestion()">
                         <i class="fe fe-trash-2 me-2"></i>Corbeille 
                         <sup class="badge badge-sm bg-danger">{{ $countTrash }}</sup>
                     </a>

@@ -3,7 +3,9 @@
 namespace App\Livewire\Students\Menus;
 
 use App\Models\Sujet;
+use App\Models\Setting;
 use Livewire\Component;
+use App\Models\Calendar;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Services\ClasseService;
@@ -57,10 +59,13 @@ class Examens extends Component
                         ->where('isActive', true)
                         ->with(['questions', 'typeSujet'])
                         ->paginate($this->page);
-
+        
         return view('livewire.students.menus.examens.index', [
 
             'sujetsData' => $sujetsData,
+            'setting'    => Setting::first(),
+            'dateExamen' => Calendar::findOrFail(2),
+            
             'title'  => 'Liste des sujets',
 
         ])->layout('layouts.student');

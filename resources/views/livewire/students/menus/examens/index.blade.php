@@ -1,14 +1,15 @@
 <div>
     <div class="mt-0 row mt-md-4">
+        <div class="col-lg-3 col-md-4 col-12">
         @include('livewire.students.side-menu')
-        <div class="col-lg-9 col-md-8 col-12 mb-4">
-         @if(!empty($sujetsData))   
+        </div>
+        <div class="mb-4 col-lg-9 col-md-8 col-12">
+        @if($sujetsData->count() > 0)   
           @include('livewire.students.menus.examens.sujets')  
-         @else
-            <!-- Card -->
-            <div class="card border-0">
+        @else
+            <div class="border-0 card">
                 <!-- Card body -->
-                <div class="card-body p-10">
+                <div class="p-10 card-body">
                     <div class="text-center">
                         <!-- text -->
                         <div class="px-lg-12">
@@ -20,10 +21,16 @@
                                 </svg>
                                 <div>
                                     Les sujets d'examen ne sont pas encore disponibles pour le moment. L'examen débutera à partir du 
-                                    <span class="badge bg-primary-soft">12/04/2024.</span>
+                                    <span class="badge bg-success-soft">
+                                        {{ $dateExamen->dateStart->format('d/m/Y') }}
+                                    </span>
+                                     jusqu'au  
+                                    <span class="badge bg-danger-soft">
+                                        {{ $dateExamen->dateEnd->format('d/m/Y') }}
+                                    </span>
                                 </div>
                             </div>
-                            <button data-bs-toggle="modal" data-bs-target="#conditions" class="btn btn-primary mt-2">
+                            <button data-bs-toggle="modal" data-bs-target="#conditions" class="mt-2 btn btn-primary">
                                 Merci de bien vouloir lire les conditions.
                             </button>
                         </div>

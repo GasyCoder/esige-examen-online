@@ -5,10 +5,11 @@
         <table class="table mb-0 text-nowrap table-centered table-hover">
             <thead class="table-light">
                 <tr>
+                    <th>Matricule</th>
                     <th>Etudiant</th>
-                    <th>Niveau</th>
-                    <th>Parcours</th>
+                    <th>Niveau/Parcours</th>
                     <th>Année U</th>
+                    <th>Ecolage</th>
                     <th>Status</th>
                     <th></th>
                     <th>Action</th>
@@ -17,10 +18,12 @@
             <tbody>
                @foreach ($students as $student)
                 @php
-                $classeUser = collect($classes)->firstWhere('id', $student->classe_id);
-                $parcourUser = collect($parcours)->firstWhere('id', $student->parcour_id);
+                    $classeUser = collect($classes)->firstWhere('id', $student->classe_id);
+                    $parcourUser = collect($parcours)->firstWhere('id', $student->parcour_id);
+                    $etudiantUser = collect($etudiants)->firstWhere('email', $student->email);
                 @endphp
                 <tr>
+                    <td>@if($etudiantUser) {{ $etudiantUser['number'] }} @endif</td>
                     <td>
                         <a href="#" class="text-inherit">
                             <div class="d-flex align-items-center">
@@ -41,14 +44,23 @@
                             </div>
                         </a>
                     </td>
-                    <td>@if($classeUser) {{ $classeUser['sigle'] }} @endif</td>
-                    <td>@if($parcourUser) {{ $parcourUser['sigle'] }} @endif</td>
+                    <td>
+                    @if($classeUser) {{ $classeUser['sigle'] }} @endif / 
+                    @if($parcourUser) {{ $parcourUser['sigle'] }} @endif
+                    </td>
                     <td>{{ $student->year_university }}</td>
                     <td>
-                        @if($student->is_active == true)
-                        <span class="badge bg-success-soft">activé</span>
+                        @if ($totalTranschesByStudent[$student->id] > 0)
+                        <span class="badge bg-primary-soft">{{ $totalTranschesByStudent[$student->id] }}/10 mois payé</span>
                         @else
-                        <span class="badge bg-danger-soft">désactivé</span>
+                        <span class="badge bg-warning-soft">{{ $totalTranschesByStudent[$student->id] }} mois</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if($student->is_active == true)
+                        <span class="badge bg-success-soft">Activé</span>
+                        @else
+                        <span class="badge bg-danger-soft">Désactivé</span>
                         @endif
                     </td>
                     <td>
@@ -73,6 +85,12 @@
                             </a>
                             <span class="dropdown-menu" aria-labelledby="courseDropdown1">
                                 <span class="dropdown-header">Actions</span>
+                                @if($student->is_active == false)
+                                <button class="dropdown-item" wire:click="addPaiement({{ $student->id }})" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
+                                    <i class="fe fe-file-plus dropdown-item-icon"></i>
+                                    Paiement
+                                </button>
+                                @endif
                                 <button class="dropdown-item">
                                     <i class="fe fe-mail dropdown-item-icon"></i>
                                     Messages

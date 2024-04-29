@@ -4,10 +4,11 @@ namespace App\Livewire\Students\Menus\Cours;
 
 use App\Models\Lesson;
 use Livewire\Component;
+use App\Models\Exercice;
+use Livewire\WithPagination;
 use App\Services\ClasseService;
 use App\Services\MatiereService;
 use App\Services\ParcourService;
-use Livewire\WithPagination;
 
 class MyCours extends Component
 {   
@@ -19,6 +20,8 @@ class MyCours extends Component
     public $lessonsArray = [];
     public $paginationLinks;
     public $matieres;
+    public $lessons;
+    public $totalExercices;
 
     public function render(ClasseService $classeService, ParcourService $parcourService, MatiereService $matiereService)
     {   
@@ -32,6 +35,12 @@ class MyCours extends Component
         $lessons = Lesson::whereIn('matiere_id', $matieres->pluck('id'))
                         ->with('exercices')
                         ->paginate($this->page);
+        
+        $this->lessons = Lesson::whereIn('matiere_id', $matieres->pluck('id'))->get();
+
+        $this->totalExercices = Exercice::whereHas('lesson', function ($query) use ($matieres) {
+            $query->whereIn('matiere_id', $matieres->pluck('id'));
+        })->count();
         
         $this->lessonsArray = $lessons->toArray();
         $this->paginationLinks = $lessons->links()->render();

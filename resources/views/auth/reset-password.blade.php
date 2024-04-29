@@ -76,7 +76,7 @@
                                 <x-text-input type="password" id="password_confirmation" name="password_confirmation"
                                     autocomplete="new-password"
                                     class="w-full py-4 pl-6 pr-10 bg-transparent border rounded-lg outline-none border-stroke focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                    data-listener-added_5d4183ba="true">
+                                    data-listener-added_5d4183ba="true"/>
     
                                 <span class="absolute right-4 top-4">
                                     <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"

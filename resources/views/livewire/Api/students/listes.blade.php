@@ -18,7 +18,7 @@
                 <!-- Tab Pane -->
                 <div class="tab-pane fade show active" id="tabPaneGrid" role="tabpanel" aria-labelledby="tabPaneGrid">
                     <div class="mb-4">
-                        <input type="search" class="form-control" placeholder="Search Students">
+                        <input type="search" class="form-control" placeholder="Rechercher étudiants">
                     </div>
                     <div class="row">
                     @foreach($etudiants as $key => $etudiant)
@@ -40,14 +40,14 @@
                             <div class="card-body">
                                 <div class="text-center">
                                     <div class="position-relative">
-                                       <img src="{{ $etudiant['photo_url'] }}" class="mb-3 rounded-circle avatar-xl"
+                                       {{-- <img src="{{ $etudiant['photo_url'] }}" class="mb-3 rounded-circle avatar-xl"
                                         alt="{{ $etudiant['fname'] }} {{ $etudiant['lname'] }}">
                                        <a href="#" class="mt-8 position-absolute ms-n5">
                                             <span class="status bg-success"></span>
-                                        </a>
+                                        </a> --}}
                                     </div>
                                     <h4 class="mb-0">{{ $etudiant['fname'] . ' ' . $etudiant['lname'] }}</h4>
-                                    <p class="mb-0">
+                                    <p class="mb-0 fw-bold">
                                         <i class="fe fe-hash fs-6"></i>
                                         {{ $etudiant['number'] }}
                                     </p>
@@ -65,6 +65,10 @@
                                     <span class="text-dark">{{ $etudiant['phoneStudent'] }}</span>
                                 </div>
                             </div>
+                            @if(in_array($etudiant['email'], $studentsWithAccount))
+                            @else
+                            <button class="btn btn-info" wire:click="checkUser({{ $etudiant['id'] }})" data-bs-toggle="modal" data-bs-target="#newStundent">Confirmer</button>
+                            @endif
                         </div>
                     </div>
                     @endforeach

@@ -7,7 +7,7 @@
                 <div class="accordion-item">
                     <h2 class="fw-bold accordion-header" id="flush-heading{{ $key }}">
                         <button class="fw-bold accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapse{{ $key }}" aria-expanded="false"
+                            data-bs-target="#flush-collapse{{ $key }}" aria-expanded="true"
                             aria-controls="flush-collapse{{ $key }}">
                             Exercice #{{ $exercise->reference }}
                             @if ($hasResponse[$exercise->id])
@@ -16,7 +16,7 @@
                             @endif
                         </button>
                     </h2>
-                    <div id="flush-collapse{{ $key }}" class="accordion-collapse collapse"
+                    <div id="flush-collapse{{ $key }}" class="accordion-collapse collapse show"
                         aria-labelledby="flush-heading{{ $key }}" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                           @if (!$hasResponse[$exercise->id])
@@ -49,7 +49,7 @@
                                         Téléverser votre réponse <small>(PDF, JPG, PNG)</small> <span
                                             class="text-danger">*</span>
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input type="file" wire:model="file_path" class="form-control"
                                             id="file_path_{{ $exercise->id }}">
                                         <label class="input-group-text" for="file_path">Téléverser</label>

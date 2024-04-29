@@ -4,8 +4,10 @@ namespace App\Livewire\Students;
 
 use App\Models\Sujet;
 use App\Models\Lesson;
+use App\Models\Ecolage;
 use Livewire\Component;
 use App\Models\Exercice;
+use App\Models\Programme;
 use App\Services\ClasseService;
 use App\Services\MatiereService;
 use App\Services\ParcourService;
@@ -60,8 +62,20 @@ class HomeStudents extends Component
             $query->whereIn('matiere_id', $matieres->pluck('id'));
         })->count();
 
+        $payEcolage = Ecolage::where('status', 'paye')->where('user_id', $user->id)->sum('tranche');
+        $totalMois = 10-$payEcolage;
+        // $payEcolage = Ecolage::where('status', 'paye')
+        //               ->where('user_id', $user->id)
+        //               ->orderBy('datePay', 'desc')
+        //               ->first();
+
+        $programmes = Programme::where('classe_id', $user->classe_id)->where('status', true)->count();
+        $programmeAlls = Programme::where('status', false)->count();
         return view('livewire.students.home-students', [
             'sujets' => $sujets,
+            'totalMois'  => $totalMois,
+            'programmes'  => $programmes,
+            'programmeAlls' => $programmeAlls,
         ])->layout('layouts.student');
     }
 

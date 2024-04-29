@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Sujet;
+use App\Models\Lesson;
 use GuzzleHttp\Client;
 
 class MatiereService
@@ -53,4 +55,20 @@ class MatiereService
         });
     }
 
+    public function getMatieresNotSujet()
+    {
+        $sujetsIds = Sujet::withoutTrashed()->pluck('matiere_id')->toArray();
+        return collect($this->getMatieres())
+            ->whereNotIn('id', $sujetsIds)
+            ->values();
+    }
+
+    public function getMatieresNotLesson()
+    {
+        $lessonIds = Lesson::withoutTrashed()->pluck('matiere_id')->toArray();
+        return collect($this->getMatieres())
+            ->whereNotIn('id', $lessonIds)
+            ->values();
+    }
+    
 }

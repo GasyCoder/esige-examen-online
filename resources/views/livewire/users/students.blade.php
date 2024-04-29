@@ -22,7 +22,7 @@
                                     <a class="nav-link active position-relative" id="students-tab" data-bs-toggle="pill"
                                         href="#students" role="tab" aria-controls="students" aria-selected="true">Tous
                                         <span
-                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                                            class="top-0 position-absolute start-100 translate-middle badge rounded-pill bg-success">
                                             {{ $countStudent }}
                                         </span>
                                     </a>
@@ -32,7 +32,7 @@
                                         href="#archive" role="tab" aria-controls="archive"
                                         aria-selected="false">Archives
                                         <span
-                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            class="top-0 position-absolute start-100 translate-middle badge rounded-pill bg-danger">
                                             {{ $countArchive }}
                                         </span>
                                     </a>
@@ -62,4 +62,6 @@
             </div>
         </div>
     </section>
+
+    @include('livewire.users.modal.paiement')
 </div>

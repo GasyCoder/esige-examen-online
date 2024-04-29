@@ -1,7 +1,4 @@
 <?php
-use App\Http\Middleware\is_Admin;
-use App\Http\Middleware\is_Teacher;
-use App\Http\Middleware\is_Student;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -22,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'prevent.home.access' => \App\Http\Middleware\PreventHomeAccess::class,
             'check.sujet.ouvert' => \App\Http\Middleware\CheckSujetOuvert::class,
             'check.user.status' => \App\Http\Middleware\CheckUserStatus::class,
+            'check.site.status' => \App\Http\Middleware\CheckSiteStatus::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -1,6 +1,8 @@
 <div>
     <div class="mt-0 row mt-md-4">
+        <div class="col-lg-3 col-md-4 col-12">
         @include('livewire.students.side-menu')
+        </div>
         <div class="col-lg-6 col-md-8 col-12">
                     <!-- Card -->
                     <div class="card rounded-3">
@@ -32,7 +34,7 @@
                                            {{ $cour->sub_title }}
                                         </p>
                                         <p>
-                                            {{ $cour->body }}
+                                            {!! $cour->body !!}
                                         </p>
                                     </div>
                                     </div>
@@ -46,7 +48,7 @@
                                     <h6 class="mb-0">Commentaire sur cette cours</h4>
                                 </div>
                                 <!-- card body  -->
-                                <div class="card-body py-3">
+                                <div class="py-3 card-body">
                                     <div class="d-flex align-items-center">
                                         <img src="{{ asset('assets/images/avatar/avatar-1.jpg') }}" alt="" class="avatar-md avatar rounded-circle">
                                         <div class="ms-3">
@@ -58,7 +60,7 @@
                                     </div>
                                 </div>
                                 <!-- card body  -->
-                                <div class="card-body border-top py-3">
+                                <div class="py-3 card-body border-top">
                                     <form>
                                     <div class="mb-3">
                                         <textarea class="form-control" id="siteDescription" 
@@ -95,6 +97,10 @@
                                 @if($matiere)
                                 {{ $matiere['teacher']['fullname'] }}
                                 @endif
+                            </li>
+                            <li class="bg-transparent list-group-item">
+                                <i class="align-middle fe fe-clock me-2 text-info"></i>
+                                Volume d'heures : 21 heures
                             </li>
                             <li class="bg-transparent list-group-item">
                                 <i class="align-middle fe fe-calendar me-2 text-info"></i>

@@ -8,9 +8,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" class="needs-validation" novalidate="" wire:submit.prevent="create({{ $etudiant['id'] }})">
+                <form method="POST" class="needs-validation" novalidate="" wire:submit.prevent="create">
                     @csrf
-                    <input type="hidden" class="form-control" wire:model="fname" />
+                    {{-- <input type="hidden" class="form-control" wire:model="fname" />
                     <input type="hidden" class="form-control" wire:model="email" />
                     <input type="hidden" class="form-control" wire:model="classeId" />
                     <input type="hidden" class="form-control" wire:model="parcourId" />
@@ -26,9 +26,9 @@
                         </label>
                         <input type="password" wire:model="password_confirmation" class="form-control"
                             placeholder="Confirmer mot de passe" id="password_confirmation">
-                    </div>
+                    </div> --}}
                     <div>
-                        <button type="submit" class="btn btn-primary">Créer un compte</button>
+                        <button type="submit" class="btn btn-primary">Confirmer</button>
                     </div>
                 </form>
             </div>

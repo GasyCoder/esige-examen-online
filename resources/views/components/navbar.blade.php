@@ -1,7 +1,10 @@
 <nav class="mb-3 navbar navbar-expand-lg">
     <div class="px-0 container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="{{ asset('assets/images/logo/logo.png') }}" width="40" height="40" alt="ESIGE"></a>
+            @php
+                $setParms = App\Models\Setting::first();
+            @endphp
+            <img src="{{ asset('storage/' .$setParms->logo) }}" width="40" height="40" alt="{{ $setParms->name_app }}"></a>
         <!-- Mobile view nav wrap -->
         <div class="ms-auto d-flex align-items-center order-lg-3">
             <div class="dropdown">
@@ -15,21 +18,21 @@
                         <button type="button" class="dropdown-item d-flex align-items-center"
                             data-bs-theme-value="light" aria-pressed="false">
                             <i class="bi theme-icon bi-sun-fill"></i>
-                            <span class="ms-2">Light</span>
+                            <span class="ms-2">Clair</span>
                         </button>
                     </li>
                     <li>
                         <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
                             aria-pressed="false">
                             <i class="bi theme-icon bi-moon-stars-fill"></i>
-                            <span class="ms-2">Dark</span>
+                            <span class="ms-2">Sombre</span>
                         </button>
                     </li>
                     <li>
                         <button type="button" class="dropdown-item d-flex align-items-center active"
                             data-bs-theme-value="auto" aria-pressed="true">
                             <i class="bi theme-icon bi-circle-half"></i>
-                            <span class="ms-2">Auto</span>
+                            <span class="ms-2">Système</span>
                         </button>
                     </li>
                 </ul>
@@ -57,7 +60,7 @@
                         <div class="dropdown-divider"></div>
                         <ul class="list-unstyled">
                             <li>
-                                <a class="dropdown-item" href="profile-edit.html">
+                                <a class="dropdown-item" href="{{ route('myprofile') }}">
                                     <i class="fe fe-user me-2"></i>
                                     Profile
                                 </a>

@@ -32,7 +32,6 @@ class ParcourService
         return null;
     }
 
-
     public function getParcours()
     {
         $response = $this->client->get('api/parcours');
@@ -43,6 +42,4 @@ class ParcourService
         }
         return [];
     }
-
-    
 }
